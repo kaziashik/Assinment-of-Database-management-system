@@ -1,0 +1,28 @@
+<?php
+/* Attempt MySQL server connection. Assuming you are running MySQL
+server with default setting (user 'root' with no password) */
+$link = mysqli_connect("127.0.0.1", "root", "", "moviesactors");
+ 
+// Check connection
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+ 
+// Escape user inputs for security
+$movie_name = mysqli_real_escape_string($link, $_REQUEST['name']);
+
+ 
+// Attempt insert query execution
+$sql = "INSERT INTO movies (name) VALUES ('$movie_name')";
+if(mysqli_query($link, $sql)){
+    echo "Records added successfully.";
+
+} else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
+ 
+// Close connection
+mysqli_close($link);
+?>
+<br><br>
+<a href="index.php">Home</a>
